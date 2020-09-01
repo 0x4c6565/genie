@@ -115,7 +115,7 @@ func (g *Genie) getGenerators(marker string) []Generator {
 func (g *Genie) parseMarker(marker string) (Marker, error) {
 	m := Marker{}
 
-	parts := strings.Split(marker, ":")
+	parts := strings.SplitN(marker, ":", 3)
 	if len(parts) < 2 {
 		return m, fmt.Errorf("Invalid marker '%s'", marker)
 	}
