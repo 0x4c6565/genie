@@ -120,6 +120,10 @@ func (g *Genie) parseMarker(marker string) (Marker, error) {
 		return m, fmt.Errorf("Invalid marker '%s'", marker)
 	}
 
+	if len(parts[1]) < 1 {
+		return m, fmt.Errorf("Invalid marker '%s': missing marker name", marker)
+	}
+
 	m.Name = parts[1]
 	if len(parts) == 3 {
 		m.Args = parts[2]
