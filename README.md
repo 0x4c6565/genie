@@ -77,7 +77,7 @@ type Person struct {
 
 **generate/model_apiresponse.go**
 
-This file will contain a generator to act upon the `apiresponse` marker, and a `main` func to invoke Genie with this generator
+This file will contain a single generator to act upon the `apiresponse` marker, and a `main` func to invoke Genie with this generator (note, Genie can act upon multiple generators at a time)
 
 ```go
 package main
