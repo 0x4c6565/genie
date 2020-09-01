@@ -45,14 +45,14 @@ func (g *Genie) Generate() error {
 	jenFile := jen.NewFile(g.pkg)
 
 	files, err := g.input.Read()
-	if err == nil {
+	if err != nil {
 		return err
 	}
 	for _, file := range files {
 		g.generateFile(jenFile, file)
 	}
 
-	g.output.Output(jenFile)
+	g.output.Write(jenFile)
 
 	return nil
 }
@@ -79,15 +79,17 @@ func (g *Genie) generateFile(jenFile *jen.File, parsedFile *ast.File) error {
 						return false
 					}
 
-					generator := g.getGenerator(marker.Name)
-					if generator == nil {
+					generators := g.getGenerators(marker.Name)
+					if generators == nil {
 						continue
 					}
 
-					err = generator.Generate(marker, typeSpec.Name.String(), jenFile)
-					if err != nil {
-						innerErr = fmt.Errorf("Marker %s generate failed: %s", generator.MarkerName(), err.Error())
-						return false
+					for _, generator := range generators {
+						err = generator.Generate(marker, typeSpec.Name.String(), jenFile)
+						if err != nil {
+							innerErr = fmt.Errorf("Marker %s generate failed: %s", generator.MarkerName(), err.Error())
+							return false
+						}
 					}
 				}
 			}
@@ -99,14 +101,15 @@ func (g *Genie) generateFile(jenFile *jen.File, parsedFile *ast.File) error {
 	return innerErr
 }
 
-func (g *Genie) getGenerator(marker string) Generator {
+func (g *Genie) getGenerators(marker string) []Generator {
+	var generators []Generator
 	for _, generator := range g.markerGenerators {
 		if generator.MarkerName() == marker {
-			return generator
+			generators = append(generators, generator)
 		}
 	}
 
-	return nil
+	return generators
 }
 
 func (g *Genie) parseMarker(marker string) (Marker, error) {

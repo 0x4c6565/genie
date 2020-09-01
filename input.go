@@ -14,6 +14,12 @@ type FileInput struct {
 	path string
 }
 
+func NewFileInput(path string) *FileInput {
+	return &FileInput{
+		path: path,
+	}
+}
+
 func (f *FileInput) Read() ([]*ast.File, error) {
 	parsedFile, err := parser.ParseFile(token.NewFileSet(), f.path, nil, parser.ParseComments)
 	if err != nil {
@@ -25,6 +31,12 @@ func (f *FileInput) Read() ([]*ast.File, error) {
 
 type DirectoryInput struct {
 	path string
+}
+
+func NewDirectoryInput(path string) *DirectoryInput {
+	return &DirectoryInput{
+		path: path,
+	}
 }
 
 func (f *DirectoryInput) Read() ([]*ast.File, error) {
