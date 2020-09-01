@@ -2,7 +2,7 @@
 
 Genie is a tool for generating Go code, inspired by [kubebuilder](https://github.com/kubernetes-sigs/kubebuilder).
 
-At a high-level, Genie uses Generators which act upon annotated Go structs, using `markers` (see components below)
+At a high-level, Genie uses `Generators` which act upon annotated Go structs, using `markers` (see components below)
 
 ## Components
 
