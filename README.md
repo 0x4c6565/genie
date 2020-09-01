@@ -12,7 +12,7 @@ A marker consists of a prefix (`genie`), name (`somemarker`) and optional argume
 
 Example:
 
-```
+```go
 // +genie:somemarker:someargs=abcdef
 type SomeStruct struct {
 	SomeProperty string
