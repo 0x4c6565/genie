@@ -93,7 +93,7 @@ type APIResponseGenerator struct {
 	*genie.BaseGenerator
 }
 
-func NewAPIResponseGeneratorGenerator() *APIResponseGenerator {
+func NewAPIResponseGenerator() *APIResponseGenerator {
 	return &APIResponseGenerator{
 		BaseGenerator: genie.NewBaseGenerator("apiresponse"),
 	}
@@ -111,7 +111,7 @@ func main() {
 		genie.NewFileInput("model.go"),
 		genie.NewFileOutput("model_apiresponse_generated.go"),
 		"main",
-		NewAPIResponseGeneratorGenerator(),
+		NewAPIResponseGenerator(),
 	).Generate()
 
 	if err != nil {
